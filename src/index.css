@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.2em;
+  }
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #f0f8ff; /* skystreet-paper */
+  background-image: radial-gradient(#aeefff 15%, transparent 16%), radial-gradient(#aeefff 15%, transparent 16%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
