@@ -1,6 +1,13 @@
 {
   "name": "skystreet-ui",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monumei/skystreet-ui.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.1",
   "type": "module",
   "main": "./dist/skystreet-ui.umd.js",
