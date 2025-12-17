@@ -1,31 +1,35 @@
-# SKYSTREET UI
+# skystreet-ui
 
-<div align="center">
-  <h3>PALE BUT STRONG. A LIGHT PIERCING FROM THE SURFACE.</h3>
-  <p>A React UI library for digital manga aesthetics. High contrast, sharp borders, and dramatic shadows.</p>
-</div>
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Version](https://img.shields.io/badge/version-0.0.1-green.svg)
 
----
+A React UI library focused on high-contrast, dramatic aesthetics inspired by manga and retro-futurism. Skystreet UI provides a set of reusable components designed for impact, featuring sharp borders, deep shadows, and signal-based color themes.
 
-## 📖 Story: Blue Signal
+## Features
 
-> "We are dreaming like singing whales, waiting to fly. I know we can't become it unless we jump out."
+- **High Contrast Design:** Bold strokes and deep shadows.
+- **Micro-animations:** Interactive elements with smooth, dramatic transitions.
+- **TypeScript Support:** Fully typed for excellent developer experience.
+- **Tailwind CSS Compatible:** Built to integrate seamlessly with Tailwind projects.
 
-**Skystreet UI** is not just a component library; it's a narrative device. Built on the "Blue Signal" design system, it evokes the feeling of a submerged world reaching for the stars. Every component—from the **Abyss Glow** panels to the **Sea Firefly** toggles—is crafted to tell a story of connection, signal, and noise.
+## Installation
 
-## 📦 Installation
-
-This library is optimized for **Bun**.
+This library is optimized for module bundlers and requires **Tailwind CSS**.
 
 ```bash
+# Using npm
+npm install skystreet-ui
+
+# Using yarn
+yarn add skystreet-ui
+
+# Using bun
 bun install skystreet-ui
 ```
 
-_(Note: Requires Tailwind CSS to be configured in your project)_
+### Tailwind Configuration
 
-## 🚀 Quick Start
-
-1. **Configure Tailwind**: Add the Skystreet preset or configuration to your `tailwind.config.js`.
+Add the Skystreet theme extensions to your `tailwind.config.js`:
 
 ```javascript
 // tailwind.config.js
@@ -34,10 +38,10 @@ export default {
     extend: {
       colors: {
         skystreet: {
-          ink: "#1e2a78", // Ultramarine Ink
-          paper: "#f0f8ff", // Manga White
-          cyan: "#00b4d8", // Signal Blue
-          alert: "#ef4444", // System Alert
+          ink: "#1e2a78", // Primary Dark
+          paper: "#f0f8ff", // Background Light
+          cyan: "#00b4d8", // Accent/Signal
+          alert: "#ef4444", // Error/Alert
         },
       },
       boxShadow: {
@@ -48,61 +52,68 @@ export default {
 };
 ```
 
-2. **Use Components**:
+## Usage
+
+Import components directly from the package:
 
 ```tsx
-import { SkyButton, SkyPanel, SkyGlitchText } from "skystreet-ui";
+import { SkyButton, SkyPanel, SkyTextarea } from "skystreet-ui";
+import "skystreet-ui/dist/style.css"; // Ensure styles are imported if required by your setup
 
 function App() {
   return (
-    <SkyPanel tag="SCENE 01" effect="screentone">
-      <SkyGlitchText text="SYSTEM START" className="text-4xl" />
-      <SkyButton variant="alert">INITIATE FLIGHT</SkyButton>
+    <SkyPanel title="CONTROL DECK">
+      <SkyButton onClick={() => console.log("Clicked")}>ACTIVATE</SkyButton>
+
+      <div className="mt-4">
+        <SkyTextarea label="Mission Log" placeholder="Enter log details..." />
+      </div>
     </SkyPanel>
   );
 }
 ```
 
-## 🧩 Components
+## Component API
 
-### Narrative Elements
+### `SkyButton`
 
-- **SkyPanel**: The core container. Supports `screentone` and `speedlines` effects.
-- **SkyComicBox**: For establishing shots and narration text.
-- **SkyVerticalText**: Traditional vertical Japanese typesetting for dramatic headers.
-- **SkyGlitchText**: Animated text that splits into chromatic aberration on hover.
-- **SkyTicker**: Scrolling marquee for news, updates, or internal monologues.
+A button with a sweep animation on hover.
 
-### Controls & Input
+| Prop       | Type                   | Description                                      |
+| ---------- | ---------------------- | ------------------------------------------------ |
+| `variant`  | `'primary' \| 'alert'` | Visual style of the button. Default `'primary'`. |
+| `children` | `ReactNode`            | Button content.                                  |
 
-- **SkyButton**: Cybernetic buttons with sweep animations.
-- **SkyInput**: High-contrast text inputs with focus markers.
-- **SkySelect**: Custom dropdowns with sharp angles.
-- **SkyToggle**: Mechanical toggle switches.
-- **SkySlider**: Precision sliders for adjusting output magnitude.
+### `SkyToggle`
 
-### Data Display
+A toggle switch with spring-like animation.
 
-- **SkyCard**: Metric cards for system status, user stats, or story progress.
-- **SkyTable**: Data grids with hover row highlights.
-- **SkySkeleton**: Loading states that look like tuning antennas.
+| Prop       | Type                         | Description                                  |
+| ---------- | ---------------------------- | -------------------------------------------- |
+| `checked`  | `boolean`                    | State of the toggle.                         |
+| `onChange` | `(checked: boolean) => void` | Handler for state changes.                   |
+| `label`    | `string`                     | Optional label displayed next to the toggle. |
 
-### Layout
+### `SkyTextarea`
 
-- **SkySidebar**: Off-canvas navigation for your app's "Story Index".
+A styled textarea with focus effects.
 
-## 🎨 Philosophy
+| Prop          | Type     | Description                         |
+| ------------- | -------- | ----------------------------------- |
+| `label`       | `string` | Label displayed above the textarea. |
+| `placeholder` | `string` | Placeholder text.                   |
 
-**Skystreet UI** adheres to the **"Impact & Ink"** philosophy:
+_(See individual component files or TypeScript definitions for full prop lists.)_
 
-1. **Bold Strokes**: 2px-4px borders are standard.
-2. **Deep Shadows**: Hard, non-blurred shadows (`box-shadow: 8px 8px 0px`).
-3. **Signal Colors**: Use Cyan (`#00b4d8`) sparingly to guide the eye like a beacon.
+## Development
 
-## 📜 License
+To run the project locally:
+
+```bash
+bun install
+npm run dev
+```
+
+## License
 
 MIT © [Monumei](https://github.com/monumei)
-
----
-
-> "Even if the sea runs dry, the song will reach you."

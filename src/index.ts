@@ -11,6 +11,7 @@ import { SkySlider } from './components/SkySlider';
 import { SkyTable } from './components/SkyTable';
 import { SkyTicker } from './components/SkyTicker';
 import { SkyToggle } from './components/SkyToggle';
+import { SkyTextarea } from './components/SkyTextarea';
 import { SkyVerticalText } from './components/SkyVerticalText';
 
 export { SkyButton } from './components/SkyButton';
@@ -24,6 +25,7 @@ export { SkySidebar } from './components/SkySidebar';
 export { SkySkeleton } from './components/SkySkeleton';
 export { SkySlider } from './components/SkySlider';
 export { SkyTable } from './components/SkyTable';
+export { SkyTextarea } from './components/SkyTextarea';
 export { SkyTicker } from './components/SkyTicker';
 export { SkyToggle } from './components/SkyToggle';
 export { SkyVerticalText } from './components/SkyVerticalText';
@@ -42,6 +44,7 @@ const SkyStreet = {
   Table: SkyTable,
   Ticker: SkyTicker,
   Toggle: SkyToggle,
+  Textarea: SkyTextarea,
   VerticalText: SkyVerticalText
 };
 
