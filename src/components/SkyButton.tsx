@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SkyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'primary' | 'alert' | 'outline' | 'ghost' | 'default';
 }

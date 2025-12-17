@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkySkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SkySkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: string | number;
   height?: string | number;
   variant?: 'rect' | 'circle' | 'text';

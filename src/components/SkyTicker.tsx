@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface TickerTapeProps {
+export interface TickerTapeProps {
   text: string;
   speed?: number;
 }

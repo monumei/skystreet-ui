@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface VerticalTextProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface VerticalTextProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
 }
 

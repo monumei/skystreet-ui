@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkyPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SkyPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   /** Background image URL */
   src?: string; 

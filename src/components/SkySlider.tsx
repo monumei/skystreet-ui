@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-interface SkySliderProps {
+export interface SkySliderProps {
   min?: number;
   max?: number;
   step?: number;

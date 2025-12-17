@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkyToggleProps {
+export interface SkyToggleProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label?: string;

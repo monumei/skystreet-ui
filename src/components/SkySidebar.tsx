@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkySidebarProps {
+export interface SkySidebarProps {
   children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;

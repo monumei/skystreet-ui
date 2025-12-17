@@ -5,7 +5,7 @@ interface SkySelectOption {
   label: string;
 }
 
-interface SkySelectProps {
+export interface SkySelectProps {
   options: SkySelectOption[];
   value?: string;
   onChange: (value: string) => void;

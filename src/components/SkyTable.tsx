@@ -6,7 +6,7 @@ interface Column {
   width?: string;
 }
 
-interface SkyTableProps {
+export interface SkyTableProps {
   columns: Column[];
   data: any[];
 }

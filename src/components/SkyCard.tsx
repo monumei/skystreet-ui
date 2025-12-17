@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SkyCardProps {
+export interface SkyCardProps {
   title: string;
   value: string;
   trend?: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface GlitchTextProps {
+export interface GlitchTextProps {
   text: string;
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span';
   className?: string;

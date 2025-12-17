@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-interface SkyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface SkyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
