@@ -27,3 +27,7 @@ jobs:
       - name: Publish Preview
         if: github.event_name == 'pull_request'
         run: bunx pkg-pr-new publish
+
+      - run: bun publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
