@@ -1,242 +1,238 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { SkyPanel } from '../components/SkyPanel';
-import { SkyComicBox } from '../components/SkyComicBox';
-import { SkyVerticalText } from '../components/SkyVerticalText';
-import { SkyTicker } from '../components/SkyTicker';
+import { Github, ArrowRight, Package, Terminal, Zap, Layout } from 'lucide-react';
 import { SkyButton } from '../components/SkyButton';
 import { SkyGlitchText } from '../components/SkyGlitchText';
-import { SkyTable } from '../components/SkyTable';
-import { SkyToggle } from '../components/SkyToggle';
 import { SkyCard } from '../components/SkyCard';
-import { SkyInput } from '../components/SkyInput';
-import { SkySkeleton } from '../components/SkySkeleton';
-import { SkySelect } from '../components/SkySelect';
-import { SkySidebar } from '../components/SkySidebar';
-import { SkySlider } from '../components/SkySlider';
+import { SkyCode } from '../components/SkyCode';
+import { SkyTicker } from '../components/SkyTicker';
+import { SkyThemeToggle } from '../components/SkyThemeToggle';
+import { SkyComicBox } from '../components/SkyComicBox';
+import { SkyPanel } from '../components/SkyPanel';
 
 export default function Home() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [sliderValue, setSliderValue] = useState(50);
-  const [selectValue, setSelectValue] = useState('opt1');
+  const [scrolled, setScrolled] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      // Calculate normalized mouse position (-1 to 1)
+      setMousePos({
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: (e.clientY / window.innerHeight) * 2 - 1,
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen p-8 md:p-16">
-      <SkySidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)}>
-        <div className="space-y-6">
-          <h3 className="text-xl font-black text-skystreet-ink border-b-2 border-skystreet-cyan pb-2">STORY INDEX</h3>
-          <ul className="space-y-4 font-bold text-skystreet-ink/80">
-            <li className="hover:text-skystreet-cyan cursor-pointer hover:translate-x-2 transition-transform">PROLOGUE: THE SURFACE</li>
-            <li className="hover:text-skystreet-cyan cursor-pointer hover:translate-x-2 transition-transform">CH 1: WHALE SONG</li>
-            <li className="hover:text-skystreet-cyan cursor-pointer hover:translate-x-2 transition-transform">CH 2: BLUE SIGNAL</li>
-            <li className="hover:text-skystreet-cyan cursor-pointer hover:translate-x-2 transition-transform">EPILOGUE: FLIGHT</li>
-            <li className="pt-4 border-t-2 border-dashed border-skystreet-ink/20">
-              <Link to="/docs" className="hover:text-skystreet-cyan cursor-pointer hover:translate-x-2 transition-transform block">
-                SYSTEM DOCS // MANUAL
-              </Link>
-            </li>
-          </ul>
-           <SkyCard title="Story Progress" value="82%" trend="TURNING PAGES" trendUp={true} />
-        </div>
-      </SkySidebar>
-
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
-        
-        {/* Header Section */}
-        <div className="md:col-span-1 hidden md:block">
-           <SkyVerticalText text="BLUE SIGNAL SYSTEM" />
-        </div>
-
-        <div className="md:col-span-11">
-          <div className="mb-12 flex justify-between items-end">
-            <div>
-              <SkyComicBox text="PROJECT: WHALE SONG" />
-              <h1 className="text-6xl md:text-8xl font-black text-black tracking-tighter">
-                SKY<span className="text-skystreet-cyan">STREET</span>
-              </h1>
-              <p className="mt-4 text-skystreet-ink font-bold max-w-lg text-lg leading-relaxed">
-                Pale but strong. A light piercing from the surface. 
-                We are dreaming like singing whales, waiting to fly.
-                I know we can't become it unless we jump out.
-              </p>
-            </div>
-            <div className="hidden md:flex gap-4">
-               <Link to="/docs" className="group">
-                  <SkyButton variant="outline">SYSTEM DOCS</SkyButton>
-               </Link>
-               <SkyButton onClick={() => setIsSidebarOpen(true)}>OPEN STORY</SkyButton>
-            </div>
-          </div>
-
-          {/* Grid Showcase */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
-            
-            {/* Panel 1: Image & Overlay */}
-              <div className="md:col-span-8">
-                <SkyPanel 
-                className="h-full"
-                src="https://images.unsplash.com/photo-1515462277126-2dd0c162007a?q=80&w=1000&auto=format&fit=crop"
-                tag="DEPTH: 2000m"
-                effect="screentone"
-                shadowColor="#00b4d8"
-              >
-                <div className="absolute top-6 left-6 text-6xl font-black text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  シグナル
-                </div>
-                <div className="absolute bottom-0 left-0 w-full bg-white/95 p-6 border-t-2 border-skystreet-ink translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-2xl font-black text-skystreet-ink">ABYSS GLOW</h3>
-                  <p className="text-skystreet-cyan font-bold text-xs">SEA FIREFLY LANTERN</p>
-                </div>
-              </SkyPanel>
-            </div>
-
-            {/* Panel 2: Colored Action Panel */}
-            <div className="md:col-span-4">
-              <SkyPanel 
-                className="h-full bg-skystreet-ink text-white"
-                borderColor="#000000"
-                shadowColor="#000000"
-                effect="speedlines"
-              >
-                <div className="h-full flex items-center justify-center p-8 text-center">
-                  <div>
-                    <div className="text-xs font-bold tracking-[0.3em] mb-2 text-skystreet-cyan">NOTICE</div>
-                    <SkyGlitchText text="NOISE FILTER" className="text-4xl font-impact italic tracking-wide text-skystreet-cyan" />
-                  </div>
-                </div>
-              </SkyPanel>
-            </div>
-
-            {/* Panel 3: Clean Info */}
-            <div className="md:col-span-4">
-                <SkyPanel className="h-full" interactive={true}>
-                  <div className="p-8 h-full flex flex-col justify-between">
-                    <div className="w-16 h-16 rounded-full border-2 border-skystreet-ink bg-skystreet-cyan transition-transform duration-300 group-hover:scale-125"></div>
-                    <div>
-                      <h4 className="text-xl font-black text-skystreet-ink">The Boy</h4>
-                      <p className="text-sm text-gray-500 mt-2">Turning Pages...</p>
-                    </div>
-                  </div>
-                </SkyPanel>
-            </div>
-
-             {/* Panel 4: Wide Text */}
-             <div className="md:col-span-8">
-               <SkyPanel className="h-full bg-skystreet-cyan" borderColor="#1e2a78">
-                 <div className="h-full flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.2)_10px,rgba(255,255,255,0.2)_20px)]"></div>
-                    <h2 className="text-6xl font-black text-black mix-blend-overlay relative z-10">BLUE SIGNAL</h2>
-                 </div>
-               </SkyPanel>
-            </div>
-
-          </div>
-
-
-          {/* New Components Showcase */}
-          <div className="mt-24 mb-12">
-            <h2 className="text-4xl font-black text-skystreet-ink mb-8 border-b-4 border-skystreet-ink inline-block p-2">
-              <SkyGlitchText text="NARRATIVE TOOLS" />
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {/* Buttons Showcase */}
-              <div className="p-8 border-2 border-skystreet-ink bg-white shadow-manga relative group">
-                <div className="absolute -top-3 -left-3 bg-skystreet-ink text-white px-2 py-1 text-xs font-bold">ACTIONS</div>
-                <div className="flex flex-col gap-6 items-start">
-                  <SkyButton>Take Hand</SkyButton>
-                  <SkyButton variant="alert">Fly High</SkyButton>
-                  <SkyButton onClick={() => setIsSidebarOpen(true)}>Open Story</SkyButton>
-                </div>
-              </div>
-
-              {/* Typography Showcase */}
-              <div className="p-8 border-2 border-skystreet-ink bg-white shadow-manga relative">
-                <div className="absolute -top-3 -left-3 bg-skystreet-cyan text-white px-2 py-1 text-xs font-bold">MESSAGES</div>
-                <div className="flex flex-col gap-4">
-                  <SkyGlitchText text="SEA IS DRYING" className="text-5xl" color="text-skystreet-alert" />
-                  <SkyGlitchText text="SONG REACHED" className="text-xl" />
-                  <div className="mt-4">
-                     <p className="text-sm text-gray-400 font-bold mb-2">TUNING ANTENNA:</p>
-                     <SkySkeleton height="1.5rem" className="mb-2" />
-                     <SkySkeleton height="1rem" width="80%" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Data & Control Showcase */}
-            <h3 className="text-2xl font-black text-skystreet-ink mb-8">NAVIGATION & COMMS</h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              {/* Stats Cards */}
-              <div className="md:col-span-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                 <SkyCard title="Singing Whales" value="01" trend="DREAMING" trendUp={true} />
-                 <SkyCard title="Light Intensity" value="100%" trend="DAZZLING" trendUp={true} />
-                 <SkyCard title="Noise Level" value="0.0%" trend="CLEARED" trendUp={false} />
-              </div>
-
-              {/* Form Controls */}
-              <div className="md:col-span-5 flex flex-col gap-6">
-                <div className="p-8 border-2 border-skystreet-ink bg-white shadow-manga">
-                  <h4 className="font-black text-lg mb-6 border-b-2 border-gray-100 pb-2">TRANSMITTER</h4>
-                  <div className="space-y-6">
-                    <SkyInput label="Frequency Key" placeholder="ENTER KEY..." />
-                    <SkyInput label="Recipient ID" placeholder="YOUR NAME" />
-                    
-                    <div className="pt-2">
-                      <p className="text-xs font-bold text-skystreet-ink uppercase mb-2">Light Level</p>
-                      <SkySelect 
-                        options={[
-                          { value: 'opt1', label: 'SURFACE: PALE' },
-                          { value: 'opt2', label: 'DEEP: GLOW' },
-                          { value: 'opt3', label: 'BEDROCK: STAR' },
-                        ]}
-                        value={selectValue}
-                        onChange={setSelectValue}
-                      />
-                    </div>
-
-                    <div className="pt-2">
-                       <SkySlider value={sliderValue} onChange={setSliderValue} label="Voice Magnitude" />
-                    </div>
-
-                    <div className="flex flex-col gap-4 pt-4 border-t-2 border-dashed border-gray-200">
-                      <SkyToggle checked={true} onChange={() => {}} label="Antenna Up" />
-                      <SkyToggle checked={false} onChange={() => {}} label="Fearless" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Table */}
-              <div className="md:col-span-7">
-                <SkyTable 
-                  columns={[
-                    { key: 'id', header: 'ID' },
-                    { key: 'signal', header: 'SIGNAL' },
-                    { key: 'sender', header: 'SENDER' },
-                    { key: 'status', header: 'STATUS' },
-                  ]}
-                  data={[
-                    { id: '001', signal: 'BLUE', sender: 'WHALE', status: 'SINGING' },
-                    { id: '002', signal: 'PALE', sender: 'BOY', status: 'READING' },
-                    { id: '003', signal: 'LOST', sender: 'NULL', status: 'WAITING' },
-                    { id: '004', signal: 'CLEAR', sender: 'YOU', status: 'CONNECTED' },
-                  ]}
-                />
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
+    <div className="min-h-screen bg-skystreet-paper dark:bg-skystreet-deep text-skystreet-ink dark:text-skystreet-star font-sans transition-colors duration-300 overflow-x-hidden">
       
-      <div className="mt-16">
-         <SkyTicker text="WAITING FOR SIGNAL // FROM YOU // PALE BUT STRONG // MOVING FORWARD // TEN WORLDS AWAY" />
-      </div>
+      {/* Navbar */}
+      <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b-2 ${scrolled ? 'bg-white/90 dark:bg-skystreet-deep/90 backdrop-blur-md border-skystreet-ink dark:border-skystreet-cyan py-3' : 'bg-transparent border-transparent py-6'}`}>
+        <div className="container mx-auto px-6 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className={`w-8 h-8 flex items-center justify-center font-black text-white bg-skystreet-ink rounded-sm transition-transform hover:rotate-12`}>
+              S
+            </div>
+            <span className="text-xl font-black tracking-tighter italic uppercase">SkyStreet<span className="text-skystreet-cyan">UI</span></span>
+          </div>
+          
+          <div className="flex items-center gap-6">
+             <Link to="/components" className="hidden md:block font-bold text-sm tracking-widest hover:text-skystreet-cyan transition-colors">COMPONENTS</Link>
+             <a href="https://github.com/monumei/skystreet-ui" target="_blank" rel="noopener noreferrer" className="hidden md:block font-bold text-sm tracking-widest hover:text-skystreet-cyan transition-colors">GITHUB</a>
+             <div className="h-6 w-[2px] bg-skystreet-ink/20 dark:bg-skystreet-cyan/20 mx-2"></div>
+             <SkyThemeToggle />
+          </div>
+        </div>
+      </nav>
 
+      {/* Hero Section */}
+      <header className="relative pt-32 pb-20 md:pt-48 md:pb-32 container mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left: Content */}
+          <div className="relative z-10 space-y-8">
+             <div className="inline-flex items-center gap-2 px-3 py-1 border-2 border-skystreet-ink dark:border-skystreet-cyan rounded-full bg-white dark:bg-skystreet-ink/50 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]">
+                <span className="w-2 h-2 rounded-full bg-skystreet-alert animate-pulse"></span>
+                <span className="text-xs font-bold tracking-widest text-skystreet-ink dark:text-skystreet-cyan uppercase">v1.0.0 Now Available</span>
+             </div>
+
+             <div>
+               <SkyComicBox text="REACT UI LIBRARY" />
+               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-skystreet-ink dark:text-white mt-4 mb-6">
+                 BUILD WITH <br/>
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-skystreet-cyan to-blue-600 dark:from-skystreet-neon dark:to-cyan-200">NARRATIVE</span>
+               </h1>
+               <p className="text-xl font-medium text-skystreet-ink/70 dark:text-skystreet-cyan/70 max-w-lg leading-relaxed">
+                 A high-impact component library designed for the Blue Signal. 
+                 Manga aesthetics meet modern React performance.
+               </p>
+             </div>
+
+             <div className="flex flex-wrap gap-4">
+               <Link to="/components">
+                 <SkyButton className="px-8 py-5 text-lg">
+                    Start Building <ArrowRight size={20} />
+                 </SkyButton>
+               </Link>
+               <SkyButton variant="outline" className="px-8 py-5 text-lg" onClick={() => window.open('https://github.com/monumei/skystreet-ui', '_blank')}>
+                    <Github size={20} /> GitHub
+               </SkyButton>
+             </div>
+          </div>
+
+          {/* Right: Floating Visuals (Parallax) */}
+          <div className="relative h-[600px] hidden lg:block perspective-1000">
+             {/* Background Blob */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-skystreet-cyan/20 rounded-full blur-[100px] animate-pulse" />
+
+             {/* Floating Elements (Parallax based on mousePos) */}
+             <div 
+               className="absolute top-10 left-10 z-30 transition-transform duration-100 ease-out"
+               style={{ transform: `translate(${mousePos.x * -20}px, ${mousePos.y * -20}px) rotate(-5deg)` }}
+             >
+                <SkyCard title="Performance" value="99%" trend="OPTIMAL" trendUp={true} />
+             </div>
+
+             <div 
+               className="absolute top-40 right-10 z-20 transition-transform duration-200 ease-out"
+               style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px) rotate(3deg)` }}
+             >
+                <SkyPanel className="w-64 h-48 bg-white dark:bg-skystreet-ink" borderColor="#00b4d8">
+                   <div className="h-full flex items-center justify-center p-4">
+                      <SkyGlitchText text="SIGNAL FOUND" className="text-2xl" />
+                   </div>
+                </SkyPanel>
+             </div>
+
+             <div 
+               className="absolute bottom-20 left-20 z-10 transition-transform duration-300 ease-out"
+               style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * -15}px) rotate(5deg)` }}
+             >
+                <div className="bg-white dark:bg-black p-4 border-2 border-skystreet-ink dark:border-skystreet-neon shadow-manga rounded w-80">
+                   <SkyTicker text="COMPONENT SYSTEM ONLINE // READY" />
+                   <div className="mt-4 flex gap-2">
+                      <SkyButton variant="outline" className="text-xs py-2 px-4">Accept</SkyButton>
+                      <SkyButton className="text-xs py-2 px-4">Deny</SkyButton>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      </header>
+
+      <SkyTicker text="THE WORLD ENDS WITH YOU // BUT THE SIGNAL REMAINS // BUILD SOMETHING REAL // SKYSTREET UI // REACT // TYPESCRIPT // TAILWIND" />
+
+      {/* Features Grid */}
+      <section className="py-24 container mx-auto px-6">
+         <div className="text-center mb-16">
+            <h2 className="text-4xl font-black text-skystreet-ink dark:text-white uppercase italic tracking-tighter">
+               Why <span className="text-skystreet-cyan">SkyStreet?</span>
+            </h2>
+            <div className="w-24 h-2 bg-skystreet-ink dark:bg-skystreet-cyan mx-auto mt-4"></div>
+         </div>
+
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <FeatureCard 
+              icon={<Layout size={32} />}
+              title="Manga Aesthetic"
+              desc="Break away from flat design. Use bold borders, screentones, and dynamic shadows."
+            />
+            <FeatureCard 
+              icon={<Zap size={32} />}
+              title="High Performance"
+              desc="Built on Vite and Tailwind. Zero runtime CSS overhead. Motions that feel instant."
+            />
+            <FeatureCard 
+              icon={<Terminal size={32} />}
+              title="Type Safe"
+              desc="First-class TypeScript support. Every component is typed for a superior DX."
+            />
+         </div>
+      </section>
+
+      {/* Installation */}
+      <section className="py-24 bg-skystreet-ink dark:bg-black text-white relative overflow-hidden">
+         <div className="absolute inset-0 bg-screentone opacity-10" />
+         
+         <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+               <SkyComicBox text="GET STARTED" />
+               <h2 className="text-4xl md:text-5xl font-black mt-6 mb-6">
+                  INITIATE THE <br/> <span className="text-skystreet-cyan">SEQUENCE</span>
+               </h2>
+               <p className="text-gray-300 text-lg mb-8 max-w-md">
+                  Add SkyStreet to your project in seconds. Compatible with React 18+ and Next.js 14+.
+               </p>
+               <SkyButton variant="default" className="bg-white text-skystreet-ink border-white hover:bg-gray-100">
+                  Read Documentation
+               </SkyButton>
+            </div>
+            
+            <div className="w-full">
+               <div className="mb-4 flex items-center gap-2">
+                  <Terminal size={20} className="text-skystreet-cyan" />
+                  <span className="font-mono text-sm text-skystreet-cyan">TERMINAL</span>
+               </div>
+               <SkyCode 
+                 code="npm install skystreet-ui" 
+                 language="bash" 
+                 className="text-lg"
+               />
+               <div className="mt-4">
+                 <SkyCode 
+                   code={`import { SkyButton } from 'skystreet-ui';
+
+export default function App() {
+  return <SkyButton>Hello World</SkyButton>;
+}`} 
+                   language="tsx" 
+                 />
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white dark:bg-skystreet-deep border-t-2 border-skystreet-ink dark:border-skystreet-cyan py-12">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+           <div>
+              <span className="font-black text-xl italic tracking-tighter">SKYSTREET<span className="text-skystreet-cyan">UI</span></span>
+              <p className="text-sm text-skystreet-ink/50 dark:text-skystreet-cyan/50 font-bold mt-1">© 2025 MONUMEI. MIT LICENSE.</p>
+           </div>
+           
+           <div className="flex gap-6 font-bold text-sm tracking-widest text-skystreet-ink dark:text-white">
+              <a href="#" className="hover:text-skystreet-cyan transition-colors">GITHUB</a>
+              <a href="#" className="hover:text-skystreet-cyan transition-colors">NPM</a>
+              <a href="#" className="hover:text-skystreet-cyan transition-colors">TWITTER</a>
+           </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
+
+// Sub-component for features
+function FeatureCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+  return (
+    <div className="p-8 border-2 border-skystreet-ink dark:border-skystreet-cyan bg-white dark:bg-skystreet-deep shadow-[8px_8px_0px_rgba(30,42,120,0.1)] hover:-translate-y-2 hover:shadow-[12px_12px_0px_#00b4d8] transition-all duration-300 group">
+       <div className="w-16 h-16 bg-skystreet-paper dark:bg-skystreet-ink rounded-full flex items-center justify-center text-skystreet-ink dark:text-skystreet-cyan mb-6 group-hover:scale-110 transition-transform">
+          {icon}
+       </div>
+       <h3 className="text-xl font-black uppercase mb-3 text-skystreet-ink dark:text-white">{title}</h3>
+       <p className="text-skystreet-ink/70 dark:text-skystreet-cyan/70 font-medium leading-relaxed">{desc}</p>
     </div>
   )
 }

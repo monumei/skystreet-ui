@@ -32,24 +32,28 @@ export const SkyButton: React.FC<SkyButtonProps> = ({
     },
     outline: {
       bg: 'bg-transparent',
-      border: 'border-skystreet-ink',
-      shadow: 'shadow-skystreet-ink/20',
-      hover: 'hover:bg-skystreet-paper text-skystreet-ink'
+      border: 'border-skystreet-ink dark:border-skystreet-neon',
+      shadow: 'shadow-skystreet-ink/20 dark:shadow-skystreet-neon/30',
+      hover: 'hover:bg-skystreet-paper dark:hover:bg-skystreet-deep text-skystreet-ink dark:text-skystreet-neon'
     },
     ghost: {
       bg: 'bg-transparent',
       border: 'border-transparent',
       shadow: 'shadow-transparent',
-      hover: 'hover:bg-skystreet-cyan/10 text-skystreet-ink'
+      hover: 'hover:bg-skystreet-cyan/10 text-skystreet-ink dark:text-skystreet-white'
     }
   };
 
   const theme = colors[variant];
 
+  // Logic to determine text color for base variants vs outline
+  const isSolid = variant === 'primary' || variant === 'alert' || variant === 'default';
+  const textColor = isSolid ? 'text-white' : 'text-skystreet-ink dark:text-skystreet-neon';
+
   return (
     <button 
       className={`
-        relative overflow-hidden px-8 py-4 ${theme.bg} ${variant === 'outline' || variant === 'ghost' ? 'text-skystreet-ink' : 'text-white'} font-black uppercase tracking-wider
+        relative overflow-hidden px-8 py-4 ${theme.bg} ${textColor} font-black uppercase tracking-wider
         border-2 ${theme.border} shadow-[4px_4px_0px_var(--tw-shadow-color)] ${theme.shadow}
         active:translate-y-1 active:translate-x-1 active:shadow-none
         transition-all duration-100
