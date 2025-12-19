@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Github, ArrowRight, Package, Terminal, Zap, Layout } from 'lucide-react';
+import { Github, ArrowRight, Terminal, Zap, Layout } from 'lucide-react';
 import { SkyButton } from '../components/SkyButton';
 import { SkyGlitchText } from '../components/SkyGlitchText';
 import { SkyCard } from '../components/SkyCard';
@@ -9,10 +9,14 @@ import { SkyTicker } from '../components/SkyTicker';
 import { SkyThemeToggle } from '../components/SkyThemeToggle';
 import { SkyComicBox } from '../components/SkyComicBox';
 import { SkyPanel } from '../components/SkyPanel';
+import { SkyVerticalText } from '../components/SkyVerticalText';
+import { SkySlider } from '../components/SkySlider';
+import { SkySkeleton } from '../components/SkySkeleton';
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [sliderVal, setSliderVal] = useState(65);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,11 +67,6 @@ export default function Home() {
           
           {/* Left: Content */}
           <div className="relative z-10 space-y-8">
-             <div className="inline-flex items-center gap-2 px-3 py-1 border-2 border-skystreet-ink dark:border-skystreet-cyan rounded-full bg-white dark:bg-skystreet-ink/50 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]">
-                <span className="w-2 h-2 rounded-full bg-skystreet-alert animate-pulse"></span>
-                <span className="text-xs font-bold tracking-widest text-skystreet-ink dark:text-skystreet-cyan uppercase">v1.0.0 Now Available</span>
-             </div>
-
              <div>
                <SkyComicBox text="REACT UI LIBRARY" />
                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-skystreet-ink dark:text-white mt-4 mb-6">
@@ -109,14 +108,14 @@ export default function Home() {
                className="absolute top-40 right-10 z-20 transition-transform duration-200 ease-out"
                style={{ transform: `translate(${mousePos.x * 10}px, ${mousePos.y * 10}px) rotate(3deg)` }}
              >
-                <SkyPanel className="w-64 h-48 bg-white dark:bg-skystreet-ink" borderColor="#00b4d8">
+                <SkyPanel className="w-64 h-48 bg-white dark:bg-skystreet-deep" borderColor="#00b4d8">
                    <div className="h-full flex items-center justify-center p-4">
-                      <SkyGlitchText text="SIGNAL FOUND" className="text-2xl" />
+                      <SkyGlitchText text="SIGNAL FOUND" className="text-2xl" color="text-skystreet-ink dark:text-skystreet-neon" />
                    </div>
                 </SkyPanel>
              </div>
 
-             <div 
+            <div 
                className="absolute bottom-20 left-20 z-10 transition-transform duration-300 ease-out"
                style={{ transform: `translate(${mousePos.x * -15}px, ${mousePos.y * -15}px) rotate(5deg)` }}
              >
@@ -126,6 +125,46 @@ export default function Home() {
                       <SkyButton variant="outline" className="text-xs py-2 px-4">Accept</SkyButton>
                       <SkyButton className="text-xs py-2 px-4">Deny</SkyButton>
                    </div>
+                </div>
+             </div>
+
+             {/* New Element: Vertical Text Zone */}
+             <div 
+               className="absolute right-0 top-1/4 z-0 transition-transform duration-500 ease-out opacity-40 mix-blend-multiply dark:mix-blend-screen"
+               style={{ transform: `translate(${mousePos.x * 5}px, ${mousePos.y * 20}px)` }}
+             >
+                <SkyVerticalText text="ZONE: A-1 // SECTOR 7" className="h-64 text-xs tracking-widest text-skystreet-ink dark:text-skystreet-cyan" />
+             </div>
+
+             {/* New Element: Slider Panel */}
+             <div 
+               className="absolute bottom-40 -right-4 z-20 transition-transform duration-200 ease-out"
+               style={{ transform: `translate(${mousePos.x * -10}px, ${mousePos.y * -10}px) rotate(-2deg)` }}
+             >
+                <div className="bg-white dark:bg-skystreet-deep/90 p-4 border-2 border-skystreet-ink dark:border-skystreet-cyan w-60 shadow-[4px_4px_0px_#00b4d8] backdrop-blur-sm transform hover:scale-105 transition-transform">
+                   <SkySlider value={sliderVal} onChange={setSliderVal} label="Sync Rate" />
+                   <div className="mt-2 flex justify-between text-[10px] uppercase font-bold text-skystreet-ink/50">
+                      <span>Min</span>
+                      <span>Max</span>
+                   </div>
+                </div>
+             </div>
+
+             {/* New Element: Data Loading */}
+             <div 
+               className="absolute top-24 left-1/3 z-0 transition-transform duration-300 ease-out"
+               style={{ transform: `translate(${mousePos.x * 25}px, ${mousePos.y * 5}px) rotate(1deg)` }}
+             >
+                <div className="bg-white/80 dark:bg-black/80 p-3 border border-skystreet-ink/20 dark:border-skystreet-neon/30 w-48 space-y-3 backdrop-blur-sm -skew-x-6">
+                    <div className="flex justify-between items-center border-b border-dashed border-gray-400 pb-1 mb-2">
+                        <span className="text-[10px] font-black uppercase">Data Upload</span>
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    </div>
+                    <div className="bg-gray-100 dark:bg-gray-900 p-2">
+                      <SkySkeleton variant="rect" height={6} className="mb-2 w-full" />
+                      <SkySkeleton variant="rect" height={6} className="mb-2 w-3/4" />
+                      <SkySkeleton variant="rect" height={6} className="w-1/2" />
+                    </div>
                 </div>
              </div>
           </div>
@@ -175,9 +214,6 @@ export default function Home() {
                <p className="text-gray-300 text-lg mb-8 max-w-md">
                   Add SkyStreet to your project in seconds. Compatible with React 18+ and Next.js 14+.
                </p>
-               <SkyButton variant="default" className="bg-white text-skystreet-ink border-white hover:bg-gray-100">
-                  Read Documentation
-               </SkyButton>
             </div>
             
             <div className="w-full">
